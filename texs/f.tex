@@ -1,0 +1,29 @@
+\documentclass[]{article}
+	\usepackage{amsmath, xparse, formulas}
+	\begin{document}
+	\begin{equation*}
+			\quad z ^{(2)} = X  W ^{(1)} \,\,\,(1)
+	\end{equation*}
+	\begin{equation*}
+		\quad a ^{(2)} = f(z ^{(2)}) \,\,\,(2)
+		\end{equation*}
+	\begin{equation*}
+		\quad z ^{(3)} = a ^{(2)}  W ^{(2)} \,\,\,(3)
+	\end{equation*}
+	\begin{equation*}
+		\quad \hat{y} = f(z ^{(3)}) \,\,\,(4)
+	\end{equation*}
+	\begin{equation*}
+		\quad J = \sum \frac{1}{2}(y - \hat{y})^{2} \,\,\,(5)
+	\end{equation*}
+	\centering Or 
+	\begin{equation*}
+		\quad J = \sum \frac{1}{2}(y - f(f(XW ^{(1)})W ^{(2)}))^{2} \,\,\,(5.1)
+	\end{equation*}
+	\begin{equation*}
+		\quad  \frac{\partial J}{\partial W^{(2)}} = (a ^{(2)})^{T} \delta ^{(3)}\,\,\,(6.1)
+	\end{equation*}
+	\begin{equation*}
+		\quad \delta ^{(3)} = -(y - \hat(y))f^{\prime} (z^{(3)}) \,\,\,(6.2)
+	\end{equation*}
+	\end{document}
