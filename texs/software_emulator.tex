@@ -1,0 +1,109 @@
+\documentclass[]{article}
+\usepackage{algorithm, algorithmic, amsmath, enumitem, formulas, listings, xcolor, xparse}
+\usepackage[T1]{fontenc}
+\definecolor{delim}{RGB}{20,105,176}
+\definecolor{numb}{RGB}{106, 109, 32}
+\definecolor{string}{rgb}{0.64,0.08,0.08}
+
+\lstdefinelanguage{json}{
+    numbers=none,
+    numberstyle=,
+    frame=none,
+    rulecolor=\color{black},
+    showspaces=false,
+    showtabs=false,
+    breaklines=true,
+    postbreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\color{gray}\hookrightarrow\space}},
+    breakatwhitespace=true,
+    basicstyle=\ttfamily\small,
+    upquote=true,
+    morestring=[b]",
+    stringstyle=\color{string},
+    literate=
+     *{0}{{{\color{numb}0}}}{1}
+      {1}{{{\color{numb}1}}}{1}
+      {2}{{{\color{numb}2}}}{1}
+      {3}{{{\color{numb}3}}}{1}
+      {4}{{{\color{numb}4}}}{1}
+      {5}{{{\color{numb}5}}}{1}
+      {6}{{{\color{numb}6}}}{1}
+      {7}{{{\color{numb}7}}}{1}
+      {8}{{{\color{numb}8}}}{1}
+      {9}{{{\color{numb}9}}}{1}
+      {\{}{{{\color{delim}{\{}}}}{1}
+      {\}}{{{\color{delim}{\}}}}}{1}
+      {[}{{{\color{delim}{[}}}}{1}
+      {]}{{{\color{delim}{]}}}}{1},
+}
+  \begin{document}
+  \begin{algorithm}
+    \caption{General Fingerprinting}
+    \label{algorithm}
+    \begin{algorithmic}[1]
+    \STATE \textbf{Input:} $Web$ $browser$ $instance$
+    \STATE \textbf{Output:} $Unique$ $browser$ $fingerPrint$ $F$
+      \STATE $Initialise$ an empty $fingerPrint$ vector
+      \STATE Get array of functions as $G$		        
+      \FOR{ $i$=1 to $G.length$ }
+        \STATE Add $G[i]$ result to the $fingerPrint$ vector
+      \ENDFOR
+      \STATE Hash the fingerprint vector $G$ to generate a unique fingerprint value $F$
+    \RETURN $F$
+    \end{algorithmic}
+  \end{algorithm}
+  \begin{algorithm}
+		\caption{Software emulator for evaluating fingerpring detection method accuracy}
+		\label{alg:cap}
+		\begin{algorithmic}[1]
+        \medbreak
+		\STATE \textbf{Input:} \\$N$ - the number of virtual devices for testing \\
+        $browser\_set[\,]\, (optional)$ - the list of browsers for testing \\
+        $user\_agent\_set[\,]\,(optional)$ - the list of user agents for testing
+        \medbreak
+		\STATE \textbf{Output:} $method\_accuracy\_n$
+        \medbreak
+        \STATE \textbf{Define:}\\
+        \begin{lstlisting}[language=json,firstnumber=1] 
+testing_report[{
+    device_id,
+    browser,
+    user_agent,
+    method_1_fingerprint,
+    method_n_fingerprint
+}]
+        \end{lstlisting}
+
+        \FOR{$i=0$ to $N$}
+            \FOR{$j=0$ to $browser\_set.length$}
+                \FOR{$k=0$ to $user\_agent\_set.length $}
+                    \STATE \textbf{Run:} $browser[browser\_set[j]]$ with $user\_agent[user\_agent\_set[k]]$
+                    \FOR{$p=0$ to $n$ do}
+                        \STATE \textbf{Run:} pages with $finger\_print$ detection
+                        \STATE \textbf{Write:} testing report: \\
+                        $testing\_report \gets { i, browser\_set[j], user\_agent\_set[k], fingerprint\_n }$
+                    \ENDFOR
+                \ENDFOR
+            \ENDFOR
+        \ENDFOR 
+        \medbreak
+        \STATE \textbf{Define:}\\
+        \begin{lstlisting}[language=json,firstnumber=1]
+error_rates[]
+        \end{lstlisting}
+        \FOR{$i=0$ to $N$}
+            \STATE \textbf{Group} results by $device\_id:$\\
+            $grouped\_report = testing\_report.filter(val => val.device\_id === i)$
+            \STATE \textbf{Find} the most frequent $fingerprint$ and its share from the total:\\
+            $correct\_detections$
+            \STATE \textbf{Calculate} device error:\\
+            $Error\_n \gets (100 - (testing\_report.length - correct\_detections))$
+        \ENDFOR
+        \medbreak
+        \STATE \textbf{Calculate} method accuracy:\\
+        $method\_accuracy\_n \gets (100 - \sum(error\_rates[n]) /\,(error\_rates.length))$
+        \medbreak
+
+		\RETURN $method\_accuracy\_n$
+		\end{algorithmic}
+	  \end{algorithm}
+	  \end{document}

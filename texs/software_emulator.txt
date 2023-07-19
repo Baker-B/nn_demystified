@@ -1,0 +1,40 @@
+Software emulator for evaluating fingerpring detection method accuracy
+
+Input:
+N - the number of virtual devices for testing
+browser_set[] (optional) - the list of browsers for testing
+user_agent_set[] (optional) - - the list of user agents for testing
+Output:
+method_accuracy_n
+
+Define testing_report[
+{
+device_id,
+browser,
+user_agent,
+method_1_fingerprint,
+method_n_fingerprint
+}
+]
+for i=0 to N do
+for j=0 to browser_set.length do
+for k=0 to user_agent_set.length do
+RUN browser[browser_set[j]] with user_agent[user_agent_set[k]]
+for p from n do
+RUN pages with finger_print detection
+Write testing report testing_report <- { i, browser_set[j], user_agent_set[k], fingerprint_n }
+end for
+end for
+end for
+end for
+
+Define error_rates[]
+for i=0 to N do
+Group results by device_id: grouped_report = testing_report.filter(val => val.device_id === i)
+Find the most frequent fingerprint and its share from the total: correct_detections
+Calculate device error: Error_n <- (100 - (testing_report.length - correct_detections))
+end for
+
+Calculate method accuracy: method_accuracy_n <- (100 - (SUM(error_rates[n]) / error_rates.length))
+
+return error_rate_n
